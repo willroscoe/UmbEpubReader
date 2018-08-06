@@ -1,0 +1,55 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage<ContentModels.Book>
+@using ContentModels = Umbraco.Web.PublishedContentModels;
+@using Wr.UmbEpubReader.Models;
+@{
+    Layout = "Master.cshtml";
+    EpubDisplayModel epub = ViewBag.Epub;
+}
+
+<section class="section">
+
+    <div class="container">
+
+        <div class="col-md-3">
+            <nav class="nav-bar nav-bar--list">
+                @Html.Partial("~/Views/Partials/Navigation/SubNavigation.cshtml")
+            </nav>
+        </div>
+
+        <div class="col-md-9">
+        </div>
+    </div>
+
+</section>
+
+<section class="section">
+
+    <div class="container">
+
+        <div class="col-md-8">
+
+            @Html.Raw(epub.ChapterHtml)
+
+            <div class="booknav">
+                @if (!string.IsNullOrEmpty(epub.RenderNav_PreviousChapterLinkAsHtml()))
+                {
+                    <span>&laquo; @Html.Raw(epub.RenderNav_PreviousChapterLinkAsHtml("epub-prev-link"))</span>
+                }
+                @if (!string.IsNullOrEmpty(epub.RenderNav_NextChapterLinkAsHtml()))
+                {
+                    <span>@Html.Raw(epub.RenderNav_NextChapterLinkAsHtml("epub-next-link")) &raquo;</span>
+                }
+            </div>
+        </div>
+        <div class="col-md-4">
+            <p>@if (!string.IsNullOrEmpty(epub.CoverImageUrl)) { <text><img src="@epub.CoverImageUrl" width="100" alt="Cover" /></text> }</p>
+            <h1>
+                @Html.Raw(epub.Title)
+            </h1>
+            <h3>@Html.Raw(epub.Authors)</h3>
+            <div>
+                @Html.Raw(epub.RenderTOC_AsUL("epub-toc"))
+            </div>
+        </div>
+    </div>
+</section>

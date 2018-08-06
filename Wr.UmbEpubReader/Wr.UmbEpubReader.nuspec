@@ -1,0 +1,23 @@
+﻿<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>UmbEpubReader</id>
+    <version>$version$</version>
+    <title>Umbraco Epub Reader Plugin</title>
+    <authors>Will Roscoe</authors>
+    <owners>Will Roscoe</owners>
+    <licenseUrl>https://github.com/willroscoe/UmbEpubReader/LICENSE.md</licenseUrl>
+    <projectUrl>https://github.com/willroscoe/UmbEpubReader</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/willroscoe/UmbEpubReader/master/assets/epub-logo64.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>An Umbraco plugin to read epub books online</description>
+    <tags>Umbraco epub reader</tags>
+    <dependencies>
+      <dependency id="UmbracoCms.Core" version="7.11.1" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="bin\VersOne.Epub.dll" target="lib\net452" />
+    <file src="bin\dotless.Core.dll" target="lib\net452" />
+  </files>
+</package>

@@ -1,0 +1,89 @@
+version: 0.1.{build}
+
+image: Visual Studio 2017
+
+# branches to build
+branches:
+  # whitelist
+  only:
+    - master
+
+# Do not build on tags (GitHub and BitBucket)
+skip_tags: true
+
+# Start builds on tags only (GitHub and BitBucket)
+skip_non_tags: false
+
+# Ignore testing a commit if only .md files or assets have changed
+# Or if various strings are found in the commit message: updated readme, update readme, update docs, update version, update appveyor
+skip_commits:
+  files:
+    - appveyor.yml
+    - '**/*.md'
+    - assets/**/*
+
+  message: /updated readme.*|update readme.*|update docs.*|update version.*|update appveyor.*/
+
+# There's no need to alter the build number for a Pull Request (PR) since they don't modify anything
+pull_requests:
+  do_not_increment_build_number: true
+
+assembly_info:
+  patch: true
+  file: '**\AssemblyInfo.*'
+  assembly_version: '{version}'
+  assembly_file_version: '{version}'
+  assembly_informational_version: '{version}'
+
+cache:
+- packages -> **\packages.config  # preserve "packages" directory in the root of build folder but will reset it if packages.config is modified
+
+before_build:
+- cmd: nuget restore Wr.UmbEpubReader.sln
+
+build:
+  publish_nuget: true
+  include_nuget_references: true
+  verbosity: minimal
+
+after_build:
+- ps: >-
+    build\tools\UmbracoTools\Wr.UmbracoTools.Packager.exe -set build\umbraco\package_settings.json -out "..\UmbEpubReader-{version}.zip" -ver ${env:APPVEYOR_BUILD_VERSION}
+
+artifacts:
+- path: UmbEpubReader*.zip
+  name: umbraco package
+
+deploy:
+   # GitHub Deployment for releases
+  - provider: GitHub
+    repository: {{GITHUB REPO PROJECT PATH}}
+    tag: $(appveyor_build_version)
+    release: {{RELEASE NAME}} $(appveyor_build_version)
+    description: 'Initial release'
+    auth_token:
+      secure: {{GITHUB SECURE AUTH TOKEN}}
+    artifact: /.*\.nupkg/, /.*\.zip/         # upload all Zip packages to release assets
+    draft: false
+    prerelease: false
+    on:
+      branch: master
+      #appveyor_repo_tag: true        # deploy on tag push only
+
+  # NuGet Deployment for releases
+  - provider: NuGet
+    server: 
+    api_key:
+      secure: {{NUGET SECURE API KEY}}
+    artifact: /.*\.nupkg/
+    on:
+      branch: master
+
+#notifications:
+#- provider: Slack
+#  auth_token:
+#    secure: {{SLACK SECURE TOKEN}}
+#  channel: '#{{SLACK CHANNEL}}'
+#  on_build_success: true
+#  on_build_failure: true
+#  on_build_status_changed: false

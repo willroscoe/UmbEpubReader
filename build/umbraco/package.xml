@@ -1,0 +1,204 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<umbPackage>
+  <files>
+    <file>
+      <guid>Wr.UmbEpubReader.dll</guid>
+      <orgPath>/bin</orgPath>
+      <orgName>Wr.UmbEpubReader.dll</orgName>
+    </file>
+    <file>
+      <guid>VersOne.Epub.dll</guid>
+      <orgPath>/bin</orgPath>
+      <orgName>VersOne.Epub.dll</orgName>
+    </file>
+    <file>
+      <guid>dotless.Core.dll</guid>
+      <orgPath>/bin</orgPath>
+      <orgName>dotless.Core.dll</orgName>
+    </file>
+    <file>
+      <guid>UmbEpubReader_Read.cshtml</guid>
+      <orgPath>/Views</orgPath>
+      <orgName>UmbEpubReader_Read.cshtml</orgName>
+    </file>
+  </files>
+  <info>
+    <package>
+      <name>Umbraco Epub Reader</name>
+      <version>0.1.0</version>
+      <iconUrl>https://raw.githubusercontent.com/willroscoe/UmbEpubReader/master/assets/epub-logo64.png</iconUrl>
+      <license url="http://opensource.org/licenses/MIT">MIT License</license>
+      <url>https://github.com/willroscoe/UmbEpubReader</url>
+      <requirements>
+        <major>7</major>
+        <minor>11</minor>
+        <patch>1</patch>
+      </requirements>
+    </package>
+    <author>
+      <name>Will Roscoe</name>
+      <website>https://github.com/willroscoe</website>
+    </author>
+    <readme>
+      <![CDATA[An Umbraco plugin to read epub books online]]>
+    </readme>
+  </info>
+  <DocumentTypes>
+    <DocumentType>
+      <Info>
+        <Name>Book</Name>
+        <Alias>book</Alias>
+        <Icon>icon-book-alt-2</Icon>
+        <Thumbnail>folder.png</Thumbnail>
+        <Description>A book doctype</Description>
+        <AllowAtRoot>False</AllowAtRoot>
+        <IsListView>False</IsListView>
+        <Compositions />
+        <AllowedTemplates>
+          <Template>Book</Template>
+        </AllowedTemplates>
+        <DefaultTemplate>Book</DefaultTemplate>
+      </Info>
+      <Structure />
+      <GenericProperties>
+        <GenericProperty>
+          <Name>Body Text</Name>
+          <Alias>bodyText</Alias>
+          <Type>Umbraco.TextboxMultiple</Type>
+          <Definition>4dc29068-18ac-45a4-9674-6a8b2fb29fd7</Definition>
+          <Tab>Content</Tab>
+          <SortOrder>3</SortOrder>
+          <Mandatory>False</Mandatory>
+          <Description><![CDATA[The body text to display]]></Description>
+        </GenericProperty>
+        <GenericProperty>
+          <Name>Book cover image</Name>
+          <Alias>bookCoverImage</Alias>
+          <Type>Umbraco.MediaPicker2</Type>
+          <Definition>b4436f51-83fd-4d62-abe0-d5f7177a5d88</Definition>
+          <Tab>Content</Tab>
+          <SortOrder>1</SortOrder>
+          <Mandatory>False</Mandatory>
+          <Description><![CDATA[The front cover image]]></Description>
+        </GenericProperty>
+        <GenericProperty>
+          <Name>Start At Chapter</Name>
+          <Alias>startAtChapter</Alias>
+          <Type>Umbraco.Integer</Type>
+          <Definition>9d28e638-b638-4fdf-bb8a-1d45e5960256</Definition>
+          <Tab>Content</Tab>
+          <SortOrder>2</SortOrder>
+          <Mandatory>False</Mandatory>
+          <Validation>^[0-9]*$</Validation>
+          <Description><![CDATA[The Index of the chapter to start at if no chapter is selected. The first chapter is 0.]]></Description>
+        </GenericProperty>
+        <GenericProperty>
+          <Name>Epub file</Name>
+          <Alias>epubFile</Alias>
+          <Type>Umbraco.MediaPicker2</Type>
+          <Definition>123c9253-380a-40b4-8c4e-53f6239efa57</Definition>
+          <Tab>Content</Tab>
+          <SortOrder>0</SortOrder>
+          <Mandatory>False</Mandatory>
+          <Description><![CDATA[The epub file for this book]]></Description>
+        </GenericProperty>
+      </GenericProperties>
+      <Tabs>
+        <Tab>
+          <Id>30</Id>
+          <Caption>Content</Caption>
+          <SortOrder>0</SortOrder>
+        </Tab>
+      </Tabs>
+    </DocumentType>
+    <DocumentType>
+      <Info>
+        <Name>Books</Name>
+        <Alias>books</Alias>
+        <Icon>icon-book-alt</Icon>
+        <Thumbnail>folder.png</Thumbnail>
+        <Description />
+        <AllowAtRoot>False</AllowAtRoot>
+        <IsListView>True</IsListView>
+        <Compositions />
+        <AllowedTemplates />
+        <DefaultTemplate />
+      </Info>
+      <Structure>
+        <DocumentType>book</DocumentType>
+      </Structure>
+      <GenericProperties />
+      <Tabs />
+    </DocumentType>
+  </DocumentTypes>
+  <Templates>
+    <Template>
+      <Name>Book</Name>
+      <Alias>Book</Alias>
+      <Design>
+        <![CDATA[@inherits Umbraco.Web.Mvc.UmbracoTemplatePage<ContentModels.Book>
+@using ContentModels = Umbraco.Web.PublishedContentModels;
+@{
+	Layout = "Master.cshtml";
+}
+
+<section class="section">
+
+    <div class="container">
+
+        <div class="col-md-3">
+            <nav class="nav-bar nav-bar--list">
+                @Html.Partial("~/Views/Partials/Navigation/SubNavigation.cshtml")
+            </nav>
+        </div>
+
+        <div class="col-md-9">
+            <article>
+                @Model.Content.BodyText
+            </article>
+        </div>
+    </div>
+
+</section>]]>
+      </Design>
+    </Template>
+  </Templates>
+  <Stylesheets />
+  <Macros />
+  <DictionaryItems />
+  <Languages />
+  <DataTypes>
+    <DataType Name="Book - Body Text - Textarea" Id="Umbraco.TextboxMultiple" Definition="4dc29068-18ac-45a4-9674-6a8b2fb29fd7" DatabaseType="Ntext">
+      <PreValues>
+        <PreValue Id="94" Value="" Alias="maxChars" SortOrder="0" />
+      </PreValues>
+    </DataType>
+    <DataType Name="Book - Book cover image - Media Picker" Id="Umbraco.MediaPicker2" Definition="b4436f51-83fd-4d62-abe0-d5f7177a5d88" DatabaseType="Ntext">
+      <PreValues>
+        <PreValue Id="117" Value="0" Alias="multiPicker" SortOrder="0" />
+        <PreValue Id="118" Value="1" Alias="onlyImages" SortOrder="1" />
+        <PreValue Id="119" Value="1" Alias="disableFolderSelect" SortOrder="2" />
+        <PreValue Id="120" Value="" Alias="startNodeId" SortOrder="3" />
+      </PreValues>
+    </DataType>
+    <DataType Name="Book - Epub file - Media Picker" Id="Umbraco.MediaPicker2" Definition="123c9253-380a-40b4-8c4e-53f6239efa57" DatabaseType="Ntext">
+      <PreValues>
+        <PreValue Id="95" Value="0" Alias="multiPicker" SortOrder="0" />
+        <PreValue Id="96" Value="0" Alias="onlyImages" SortOrder="1" />
+        <PreValue Id="97" Value="0" Alias="disableFolderSelect" SortOrder="2" />
+        <PreValue Id="98" Value="umb://media/f1db7892fd534fbd9fe91cf06615aa8f" Alias="startNodeId" SortOrder="3" />
+      </PreValues>
+    </DataType>
+    <DataType Name="Book - Start At Chapter - Numeric" Id="Umbraco.Integer" Definition="9d28e638-b638-4fdf-bb8a-1d45e5960256" DatabaseType="Integer">
+      <PreValues>
+        <PreValue Id="121" Value="0" Alias="min" SortOrder="0" />
+        <PreValue Id="122" Value="1" Alias="step" SortOrder="1" />
+        <PreValue Id="123" Value="999" Alias="max" SortOrder="2" />
+      </PreValues>
+    </DataType>
+  </DataTypes>
+  <Actions>
+    <Action runat="install" alias="allowDocumentType" documentTypeAlias="book" parentDocumentTypeAlias="books" />
+    <Action runat="install" alias="allowDocumentType" documentTypeAlias="books" parentDocumentTypeAlias="home" />
+  </Actions>
+</umbPackage>
