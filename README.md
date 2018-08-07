@@ -1,4 +1,5 @@
 ## <img src="assets/epub-logo200.png " style="margin-bottom: 5px" align="middle" alt="Logo" title="Umbraco Epub Reader" width="100"> Umbraco Epub Reader Plugin
+[![Build status](https://ci.appveyor.com/api/projects/status/g47qga5j21yoeaq9?svg=true)](https://ci.appveyor.com/project/willroscoe/umbepubreader)
 [![NuGet release](https://img.shields.io/nuget/v/UmbEpubReader.svg)](https://www.nuget.org/packages/UmbEpubReader)
 [![Our Umbraco project page](https://img.shields.io/badge/our-umbraco-orange.svg)](https://our.umbraco.org/projects/website-utilities/epub-reader/)
 

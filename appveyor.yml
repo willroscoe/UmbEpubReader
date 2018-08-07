@@ -42,7 +42,7 @@ before_build:
 - cmd: nuget restore Wr.UmbEpubReader.sln
 
 build:
-  publish_nuget: true
+  publish_nuget: false
   include_nuget_references: true
   verbosity: minimal
 
@@ -57,12 +57,12 @@ artifacts:
 deploy:
    # GitHub Deployment for releases
   - provider: GitHub
-    repository: {{GITHUB REPO PROJECT PATH}}
+    repository: willroscoe/UmbEpubReader
     tag: $(appveyor_build_version)
-    release: {{RELEASE NAME}} $(appveyor_build_version)
+    release: UmbEpubReader $(appveyor_build_version)
     description: 'Initial release'
     auth_token:
-      secure: {{GITHUB SECURE AUTH TOKEN}}
+      secure: +WQIHXHxdNFy3CQ2ItEubL7hOFj0triuSW0g6Sim2PZS9vI7iTNbDjpSyZmO2EcU
     artifact: /.*\.nupkg/, /.*\.zip/         # upload all Zip packages to release assets
     draft: false
     prerelease: false
@@ -71,19 +71,19 @@ deploy:
       #appveyor_repo_tag: true        # deploy on tag push only
 
   # NuGet Deployment for releases
-  - provider: NuGet
-    server: 
-    api_key:
-      secure: {{NUGET SECURE API KEY}}
-    artifact: /.*\.nupkg/
-    on:
-      branch: master
+  #- provider: NuGet
+  #  server: 
+  #  api_key:
+  #    secure: MKkarPmFf0Ym0j3bBQ5cw9H+H6FUw2Fe8+UEletLQ4l1mXHmuXT4UXvwYPh4yREu
+  #  artifact: /.*\.nupkg/
+  #  on:
+  #    branch: master
 
-#notifications:
-#- provider: Slack
-#  auth_token:
-#    secure: {{SLACK SECURE TOKEN}}
-#  channel: '#{{SLACK CHANNEL}}'
-#  on_build_success: true
-#  on_build_failure: true
-#  on_build_status_changed: false
+notifications:
+- provider: Slack
+  auth_token:
+    secure: buvlNNG1gsj/tCAm8nJAqyD8XX2QpkOwHR1xmQCDWhcfHQFKSrejy0lQWS/jhzxRYzsUG2G5A+WMMj+lXdFDHvTJA8aoBwxNXA+N1aoaeG4=
+  channel: '#ci-builds'
+  on_build_success: true
+  on_build_failure: true
+  on_build_status_changed: false
