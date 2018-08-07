@@ -13,6 +13,7 @@ Using the provided example 'Book' & 'Books' Document Types and Templates (includ
 
 ![Read book page](/assets/front-read.png?raw=true "Read book page")
 
+
 ![Previous/Next Nav](/assets/front-bottom-nav.png?raw=true "Previous/Next Nav")
 
 
@@ -63,10 +64,16 @@ In order for the plugin routing to work correctly for the '/read' route you will
 
 ## Web.Config App Settings
 Optional appSettings:
-```<add key="UmbEpubReader.BooksPathSegment" value="books"/>
-<add key="UmbEpubReader.ReadPathSegment" value="read"/>
 ```
-The key 'UmbEpubReader.BooksPathSegment' allows you to override the /**books**/{NAME OF BOOK} path segment (however, you must also update the 'Books' Content node name to the same value). e.g. setting it to 'ebooks' will allow the following path /ebooks/{NAME OF BOOK} to work
+<appSettings>
+...
+<add key="UmbEpubReader.BooksPathSegment" value="books"/>
+<add key="UmbEpubReader.ReadPathSegment" value="read"/>
+...
+</appSettings>
+```
+The key 'UmbEpubReader.BooksPathSegment' allows you to override the /**books**/{NAME OF BOOK} path segment (however, you must also update the 'Books' Content node name to the same value). e.g. setting it to 'ebooks' will allow the following path /ebooks/{NAME OF BOOK} to work.
+
 The key 'UmbEpubReader.ReadPathSegment' allows you to override the /books/{NAME OF BOOK}/**read** path segment. e.g. setting it to 'readonline' will allow the following path /books/{NAME OF BOOK}/**readonline** to work
 
 ## Dependencies
