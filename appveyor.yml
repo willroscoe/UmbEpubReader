@@ -42,7 +42,7 @@ before_build:
 - cmd: nuget restore Wr.UmbEpubReader.sln
 
 build:
-  publish_nuget: false
+  publish_nuget: true
   include_nuget_references: true
   verbosity: minimal
 
@@ -71,13 +71,13 @@ deploy:
       #appveyor_repo_tag: true        # deploy on tag push only
 
   # NuGet Deployment for releases
-  #- provider: NuGet
-  #  server: 
-  #  api_key:
-  #    secure: MKkarPmFf0Ym0j3bBQ5cw9H+H6FUw2Fe8+UEletLQ4l1mXHmuXT4UXvwYPh4yREu
-  #  artifact: /.*\.nupkg/
-  #  on:
-  #    branch: master
+  - provider: NuGet
+    server: 
+    api_key:
+      secure: MKkarPmFf0Ym0j3bBQ5cw9H+H6FUw2Fe8+UEletLQ4l1mXHmuXT4UXvwYPh4yREu
+    artifact: /.*\.nupkg/
+    on:
+      branch: master
 
 notifications:
 - provider: Slack
