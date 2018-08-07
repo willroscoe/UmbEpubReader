@@ -13,7 +13,7 @@ Using the provided example 'Book' & 'Books' Document Types and Templates (includ
 
 ![Read book page](/assets/front-read.png?raw=true "Read book page")
 
-
+**Previous / Next Chapter Navigation**
 ![Previous/Next Nav](/assets/front-bottom-nav.png?raw=true "Previous/Next Nav")
 
 
