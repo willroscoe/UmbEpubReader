@@ -11,7 +11,7 @@ namespace Wr.UmbEpubReader.Routing
     {
         public static void Configure()
         {
-            RouteTable.Routes.MapUmbracoRoute("BookCustomRoute",
+            RouteTable.Routes.MapUmbracoRoute("EpubBookCustomRoute",
                     UmbracoConfig.For.UmbEpubReader().BooksPathSegment + "/{booknameid}/" + UmbracoConfig.For.UmbEpubReader().ReadPathSegment + "/{*readparameters}", // get paths sections for the app settings in web.config
                     new
                     {
@@ -20,7 +20,7 @@ namespace Wr.UmbEpubReader.Routing
                         booknameid = "",
                         readparameters = UrlParameter.Optional
                     },
-                    new BookContentFinderByNiceUrl());
+                    new BookContentFinderByNiceUrl()); // this UmbracoVirtualNodeRouteHandler allows '.' in the url so the plugin can route/serve files (embeded files in the epub)
         }
     }
 }

@@ -331,9 +331,16 @@ namespace Wr.UmbEpubReader
             if (!string.IsNullOrEmpty(cHolder.NextChapter.EpubChapter?.Anchor ?? "")) // there is a next Chapter
             {
                 var endNode = bodyNodes.SelectSingleNode(string.Format("//node()[@id='{0}']", cHolder.NextChapter.EpubChapter.Anchor)); // return the end node i.e. the start of the next chapter
-                var endTag = endNode.OuterHtml;
-                int endTagPosition = bodyNodes.InnerHtml.IndexOf(endTag); // index of the end tag
-                lengthOfRequiredText = endTagPosition - startTagPosition;
+                if (endNode != null) // next chapter found
+                {
+                    var endTag = endNode.OuterHtml;
+                    int endTagPosition = bodyNodes.InnerHtml.IndexOf(endTag); // index of the end tag
+                    lengthOfRequiredText = endTagPosition - startTagPosition;
+                }
+                else // next chapter is not in this chapter file
+                {
+                    // don't need to do anything here, as lengthOfRequiredText will remain 0
+                }
             }
 
             var theHtml = string.Empty;

@@ -5,7 +5,26 @@
     Layout = "Master.cshtml";
     EpubDisplayModel epub = ViewBag.Epub;
 }
+<style>
+    .book-cover-img img {
+        width: auto;
+        max-width: 300px;
+    }
 
+    .book-title, .book-authors, .book-toc, .book-contents {
+        font-family: Arial, Helvetica, sans-serif !important;
+    }
+
+    .book-toc ul {    
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .book-next-link {
+        text-align:right;
+    }
+</style>
 <section class="section">
 
     <div class="container">
@@ -30,24 +49,25 @@
 
             @Html.Raw(epub.ChapterHtml)
 
-            <div class="booknav">
+            <div class="book-nav">
                 @if (!string.IsNullOrEmpty(epub.RenderNav_PreviousChapterLinkAsHtml()))
                 {
-                    <span>&laquo; @Html.Raw(epub.RenderNav_PreviousChapterLinkAsHtml("epub-prev-link"))</span>
+                    <div class="book-prev-link">&laquo; @Html.Raw(epub.RenderNav_PreviousChapterLinkAsHtml("epub-prev-link"))</div>
                 }
                 @if (!string.IsNullOrEmpty(epub.RenderNav_NextChapterLinkAsHtml()))
                 {
-                    <span>@Html.Raw(epub.RenderNav_NextChapterLinkAsHtml("epub-next-link")) &raquo;</span>
+                    <div class="book-next-link">@Html.Raw(epub.RenderNav_NextChapterLinkAsHtml("epub-next-link")) &raquo;</div>
                 }
             </div>
         </div>
         <div class="col-md-4">
-            <p>@if (!string.IsNullOrEmpty(epub.CoverImageUrl)) { <text><img src="@epub.CoverImageUrl" width="100" alt="Cover" /></text> }</p>
-            <h1>
+            <p class="book-cover-img">@if (!string.IsNullOrEmpty(epub.CoverImageUrl)) { <text><img src="@epub.CoverImageUrl" alt="Cover" /></text> }</p>
+            <h1 class="book-title">
                 @Html.Raw(epub.Title)
             </h1>
-            <h3>@Html.Raw(epub.Authors)</h3>
-            <div>
+            <h3 class="book-authors">by @Html.Raw(epub.Authors)</h3>
+            <div class="book-toc">
+                <h3 class="book-contents">Contents</h3>
                 @Html.Raw(epub.RenderTOC_AsUL("epub-toc"))
             </div>
         </div>

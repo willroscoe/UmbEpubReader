@@ -281,7 +281,9 @@
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
-    <Content Include="Wr.UmbEpubReader.nuspec" />
+    <Content Include="Wr.UmbEpubReader.nuspec">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup />
   <PropertyGroup>

@@ -121,8 +121,10 @@
         <AllowAtRoot>False</AllowAtRoot>
         <IsListView>True</IsListView>
         <Compositions />
-        <AllowedTemplates />
-        <DefaultTemplate />
+        <AllowedTemplates>
+          <Template>Books</Template>
+        </AllowedTemplates>
+        <DefaultTemplate>Books</DefaultTemplate>
       </Info>
       <Structure>
         <DocumentType>book</DocumentType>
@@ -149,6 +151,8 @@
         <div class="col-md-3">
             <nav class="nav-bar nav-bar--list">
                 @Html.Partial("~/Views/Partials/Navigation/SubNavigation.cshtml")
+                <p><img src="@Model.Content.BookCoverImage.Url" style="width: auto; max-width: 200px;" /></p>
+                <p><a href="read">Read Online</a></p>
             </nav>
         </div>
 
@@ -160,6 +164,41 @@
     </div>
 
 </section>]]>
+      </Design>
+    </Template>
+    <Template>
+      <Name>Books</Name>
+      <Alias>Books</Alias>
+      <Design>
+        <![CDATA[@inherits Umbraco.Web.Mvc.UmbracoTemplatePage<ContentModels.Books>
+@using ContentModels = Umbraco.Web.PublishedContentModels;
+@{
+	Layout = "Master.cshtml";
+}
+
+@Html.Partial("~/Views/Partials/SectionHeader.cshtml")
+
+<section class="section">
+
+    <div class="container">
+
+        <div class="product-grid">
+            @foreach (ContentModels.Book book in Model.Content.Children)
+                {
+                    <a href="@book.Url" class="product-grid__item" style="background-image: url('@book.BookCoverImage.Url')">
+                        <div class="product-grid__item__overlay">
+                            <div class="product-grid__item__name">@book.Name</div>
+                            
+                        </div>
+                    </a>
+                }
+            
+        </div>
+    </div>
+
+</section>
+
+]]>
       </Design>
     </Template>
   </Templates>
