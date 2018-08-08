@@ -20,6 +20,8 @@ Using the provided example 'Book' & 'Books' Document Types and Templates (includ
 ![Previous/Next Nav](/assets/front-bottom-nav.png?raw=true "Previous/Next Nav")
 
 
+**The provided templates/views are only basic examples of the plugin functionality. You can adapt them to your requirements.**
+
 Epub books have embeded files such as images and fonts, and the plugin allows these file to be served/accessed via custom book routing i.e. /books/{NAME OF BOOK}/read/images/cover.jpg.
 Embeded book css styles are added automatically to the outputted html to speed up rendering.
 
