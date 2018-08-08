@@ -9,16 +9,23 @@ This plugin allows you to display readable versions of (non-DRM) Epub books, nav
 
 Using the provided example 'Book' & 'Books' Document Types and Templates (included in the installable package - not the nuget package) and Setup (see 'Setting Up' below), you can view/read your epub books by simply navigating to:
 - '/books' to view a list of all your books
-- '/books/{NAME OF BOOK}' to see the book info page. This page uses the 'Body Text' and 'Book Cover Image' from the related 'Book' content node.
-- '/books/{NAME OF BOOK}/read' to actually read the book. This page (which uses the view: /Views/UmbEpubReader_Read.cshtml) displays the 'Book' node Cover Image as well as the actual epub chapter content and Table of Contents. This View can be ammended as needed.
+
+### '/books/{NAME OF BOOK}'
+...to see the book info page. This page uses the 'Body Text' and 'Book Cover Image' from the related 'Book' content node.
 
 ![Book info page](/assets/front-book.png?raw=true "Book info page")
 
+
+### '/books/{NAME OF BOOK}/read'
+...to actually read the book. This page (which uses the view: [**/Views/UmbEpubReader_Read.cshtml**][UmbEpubReader_Read]) displays the 'Book' node Cover Image as well as the actual epub chapter content and Table of Contents. This View can be ammended as needed. It has access to the [**'EpubDisplayModel'**][EpubDisplayModel] model from which you can access any of the model's properties, some of which are: Title, Authors, Cover Image, Chapter Html, Table of Contents (List<string>), an html <UL> formatted verion of Table of Contents, Previous/Next Chapter navigation links.    
+
+[EpubDisplayModel]: https://github.com/willroscoe/UmbEpubReader/blob/master/Wr.UmbEpubReader/Models/EpubDisplayModel.cs
+[UmbEpubReader_Read]: https://github.com/willroscoe/UmbEpubReader/blob/master/Wr.UmbEpubReader/Views/UmbEpubReader_Read.cshtml
+
 ![Read book page](/assets/front-read.png?raw=true "Read book page")
 
-**Previous / Next Chapter Navigation**
+### Previous / Next Chapter Navigation
 ![Previous/Next Nav](/assets/front-bottom-nav.png?raw=true "Previous/Next Nav")
-
 
 
 **Note: The provided templates/views are only basic examples of the plugin functionality. You can adapt them to your requirements.**
