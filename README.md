@@ -77,6 +77,12 @@ The key 'UmbEpubReader.BooksPathSegment' allows you to override the /**books**/{
 
 The key 'UmbEpubReader.ReadPathSegment' allows you to override the /books/{NAME OF BOOK}/**read** path segment. e.g. setting it to 'readonline' will allow the following path /books/{NAME OF BOOK}/**readonline** to work
 
+## Security
+Please bear in mind that Epub books could potentially contain malicious embeded files which could be served by the plugin. As a precaution the plugin currently only permits the following file extensions to be served: .html, .htm, .xhtml, .jpg, .gif, .png, .css, .ttf, .otf, .woff, .woff2, .svg
+
+It is advisable to vet/check any epub files before using. This can be done by changing the .epub extension to .zip and uncompressing the archive in order to inspect all the contained files.
+
+
 ## Dependencies
 This project references the following additional projects:
 - [**Vers One EpubReader**][VersOneEpubReader]
