@@ -18,7 +18,7 @@ Using the provided example 'Book' & 'Books' Document Types and Templates (includ
 
 
 ### /books/{NAME OF BOOK}/read
-...to actually read the book. This page (which uses the view: [**/Views/UmbEpubReader_Read.cshtml**][UmbEpubReader_Read]) displays the 'Book' node Cover Image as well as the actual epub chapter content and Table of Contents. This View can be ammended as needed. It has access to the [**'EpubDisplayModel'**][EpubDisplayModel] model from which you can access any of the model's properties, some of which are: Title, Authors, Cover Image, Chapter Html, Table of Contents (List<string>), an html <UL> formatted verion of Table of Contents, Previous/Next Chapter navigation links.    
+...to actually read the book. This page (which uses the view: [**/Views/UmbEpubReader_Read.cshtml**][UmbEpubReader_Read]) displays the 'Book' node Cover Image as well as the actual epub chapter content and Table of Contents. This View can be ammended as needed. It has access to the [**'EpubDisplayModel'**][EpubDisplayModel] model from which you can access any of the model's properties, some of which are: Title, Authors, Cover Image, Chapter Html, Table of Contents (List&lt;string&gt;), an html &lt;UL&gt; formatted verion of Table of Contents, Previous/Next Chapter navigation links.    
 
 [EpubDisplayModel]: https://github.com/willroscoe/UmbEpubReader/blob/master/Wr.UmbEpubReader/Models/EpubDisplayModel.cs
 [UmbEpubReader_Read]: https://github.com/willroscoe/UmbEpubReader/blob/master/Wr.UmbEpubReader/Views/UmbEpubReader_Read.cshtml
