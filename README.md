@@ -111,4 +111,5 @@ This project references the following additional projects:
 Copyright © 2018 Will Roscoe
 
 Licensed under the [**MIT License**][MITLicense]
+
 [MITLicense]: https://github.com/willroscoe/UmbEpubReader/blob/master/LICENSE.md
