@@ -60,7 +60,7 @@ deploy:
     repository: willroscoe/UmbEpubReader
     tag: $(appveyor_build_version)
     release: UmbEpubReader $(appveyor_build_version)
-    description: 'Initial release'
+    description: 'Fixed TOC UL output'
     auth_token:
       secure: +WQIHXHxdNFy3CQ2ItEubL7hOFj0triuSW0g6Sim2PZS9vI7iTNbDjpSyZmO2EcU
     artifact: /.*\.nupkg/, /.*\.zip/         # upload all Zip packages to release assets

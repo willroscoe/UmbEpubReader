@@ -52,7 +52,8 @@ namespace Wr.UmbEpubReader
         public FileToServe FileToServe;
 
         /// <summary>
-        /// List of safe file type that can be served from the e-book file
+        /// List of safe file type that can be served from the e-book file.
+        /// Note: although .css is in this list, this class adds all the css into a <style> tag in the html output - to speed up rendering.
         /// </summary>
         private List<string> SafeFileTypes = new List<string> { ".html", ".htm", ".xhtml", ".jpg", ".gif", ".png", ".css", ".ttf", ".otf", ".woff", ".woff2", ".svg" }; // applies to files embeded in the ebook file
 
@@ -136,7 +137,7 @@ namespace Wr.UmbEpubReader
                     }
                 }
 
-                // check if this chapter has been cached in Application memory. Is so then return that without continuing.
+                // check if this chapter has been cached in Application memory. If so then return that without continuing.
                 if (_isToCache)
                 {
                     _cacheHash = GetMd5Hash(_ePubFilePath + _processAction);// create unique hash of this chapter in this book
@@ -168,9 +169,8 @@ namespace Wr.UmbEpubReader
                     return false;
 
                 // All fonts in the book (file name is the key)
-                //Dictionary<string, EpubByteContentFileRef> fonts = bookContent.Fonts;
+                //Dictionary<string, EpubByteContentFileRef> fonts = bookContent.Fonts; // Note: VersOne.Epub is missing some font mime-types so be aware that all/some the fonts will not be in this object. They will, however, be in the .AllFiles() object
 
-                // All CSS content in the book
                 // All CSS files in the book (file name is the key)
                 Dictionary<string, EpubTextContentFileRef> cssFiles = bookContent.Css;
                 string cssContent = string.Empty;
@@ -193,7 +193,7 @@ namespace Wr.UmbEpubReader
                 // FOR REFERENCE IF NEEDED - <base href="'. $this->base_link. '/" target="_self"> // need to include <base> as some cms's adds a trailing '/' to all requests which brakes the relative links in the epub html
                 ePubDisplayModel.ChapterHtml = string.Format("<html><head><style>{0}</style></head><body><div class='epub'>{1}</div></body></html>", resultCss, ePubDisplayModel.ChapterHtml);
 
-                if (_isToCache)
+                if (_isToCache) // if using application cache
                 {
                     try
                     {
@@ -271,8 +271,6 @@ namespace Wr.UmbEpubReader
                 }
 
                 var _chapter = allChapters[_startAtIndex];
-                //cHolder.CurrentChapter.ChapterIndex = _startAtIndex;
-                //cHolder.CurrentChapter.EpubChapter = _chapter;
                 cHolder.CurrentChapter.TitleAndLinkUrl.LinkTitle = _chapter.Title;
 
                 ePubDisplayModel.RedirectToChapter = cHolder.CurrentChapter.TitleAndLinkUrl.LinkUrl;
@@ -315,10 +313,13 @@ namespace Wr.UmbEpubReader
         private string BuildChapterHtml(EpubChapterHolder cHolder)
         {
             string result = string.Empty;
-            int startTagPosition = 0;
-            int lengthOfRequiredText = 0;
+            int startTagPosition = 0; // string position of this chapter's id
+            int lengthOfRequiredText = 0; // the number of chars between the start of the chapter and the start of the next chapter (or end of the file if the next chapter isn't in the same file)
 
-            // load current chapter html into HtmlAgilityPack to parse
+            // Load current chapter html into HtmlAgilityPack to parse
+            // Method:  Find the string position of the start and end id's of this chapter, then just grab the chars between them using .Substring(). (This is a much faster method than using xpath to select the relevant nodes).
+            //          Then load the result into HtmlAgilityPack because it will fix any html issues i.e. close any unclosed tags etc 
+
             var doc = new HtmlDocument();
             doc.LoadHtml(cHolder.CurrentChapter.EpubChapter.ReadHtmlContent() ?? "");
 
@@ -362,7 +363,7 @@ namespace Wr.UmbEpubReader
             }
 
             // validate/fix html
-            doc.LoadHtml(theHtml ?? ""); // by now loading the resultant html into the HtmlDocument object this should fix and issues i.e. close any unclosed tags etc
+            doc.LoadHtml(theHtml ?? ""); // by now loading the resultant html into the HtmlDocument object this should fix any html issues i.e. close any unclosed tags etc
             result = doc.DocumentNode.OuterHtml;
 
             // now add any sub chapters
@@ -373,7 +374,7 @@ namespace Wr.UmbEpubReader
 
 
         /// <summary>
-        /// Use recursion to loop down any sub chapters
+        /// Use recursion to loop down any sub chapters. Note: none of the epub books I've used to date have sub chapters.
         /// </summary>
         /// <param name="chapter"></param>
         /// <param name="subchapterContent"></param>

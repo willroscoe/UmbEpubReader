@@ -113,3 +113,10 @@ Copyright © 2018 Will Roscoe
 Licensed under the [**MIT License**][MITLicense]
 
 [MITLicense]: https://github.com/willroscoe/UmbEpubReader/blob/master/LICENSE.md
+
+
+## Version history
+- 0.1.0
+    - Initial release
+- 0.1.1 
+     - Fixed TOC UL output

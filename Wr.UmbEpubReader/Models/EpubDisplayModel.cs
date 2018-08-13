@@ -36,11 +36,18 @@ namespace Wr.UmbEpubReader.Models
 
         public string RenderTOC_AsUL(string CssClass = "")
         {
+            if (TOC_Items.Count == 0)
+                return string.Empty;
+
             StringBuilder sb = new StringBuilder();
+
+            sb.AppendFormat("<ul class=\"{0}\">", CssClass);
             foreach (var item in TOC_Items)
             {
-                sb.AppendFormat("<ul class=\"{0}\"><li><a href=\"{1}\">{2}</a></li></ul>", CssClass, item.LinkUrl, item.LinkTitle);
+                sb.AppendFormat("<li><a href=\"{0}\">{1}</a></li>", item.LinkUrl, item.LinkTitle);
             }
+            sb.Append("</ul>");
+
             return sb.ToString();
         }
 
