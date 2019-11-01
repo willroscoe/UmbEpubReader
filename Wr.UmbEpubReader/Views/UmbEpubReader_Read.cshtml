@@ -1,5 +1,6 @@
-﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage<ContentModels.Book>
-@using ContentModels = Umbraco.Web.PublishedContentModels;
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<ContentModels.Book>
+@using ContentModels = Umbraco.Web.PublishedModels;
+
 @using Wr.UmbEpubReader.Models;
 @{
     Layout = "Master.cshtml";
@@ -15,14 +16,14 @@
         font-family: Arial, Helvetica, sans-serif !important;
     }
 
-    .book-toc ul {    
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-    }
+        .book-toc ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
 
     .book-next-link {
-        text-align:right;
+        text-align: right;
     }
 </style>
 <section class="section">
@@ -61,7 +62,8 @@
             </div>
         </div>
         <div class="col-md-4">
-            <p class="book-cover-img">@if (!string.IsNullOrEmpty(epub.CoverImageUrl)) { <text><img src="@epub.CoverImageUrl" alt="Cover" /></text> }</p>
+            <p class="book-cover-img">@if (!string.IsNullOrEmpty(epub.CoverImageUrl))
+            {<text><img src="@epub.CoverImageUrl" alt="Cover" /></text>}</p>
             <h1 class="book-title">
                 @Html.Raw(epub.Title)
             </h1>

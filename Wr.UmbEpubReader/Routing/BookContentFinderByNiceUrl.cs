@@ -1,11 +1,11 @@
 ﻿using System.Web.Routing;
 using Umbraco.Core;
+using Umbraco.Core.Composing;
 using Umbraco.Core.Configuration;
 using Umbraco.Core.Models;
+using Umbraco.Core.Models.PublishedContent;
 using Umbraco.Web;
 using Umbraco.Web.Mvc;
-using Umbraco.Web.Routing;
-using Umbraco.Web.Security;
 
 namespace Wr.UmbEpubReader.Routing
 {
@@ -42,7 +42,14 @@ namespace Wr.UmbEpubReader.Routing
         /// <returns></returns>
         protected override UmbracoContext GetUmbracoContext(RequestContext requestContext)
         {
-            var ctx = base.GetUmbracoContext(requestContext);
+            var umbracoContextFactory = Current.Factory.GetInstance<IUmbracoContextFactory>();
+
+            using (var contextReference = umbracoContextFactory.EnsureUmbracoContext())
+            {
+                var umbracoContext = contextReference.UmbracoContext;
+                return umbracoContext;
+            }
+            /*var ctx = base.GetUmbracoContext(requestContext);
             //check if context is null, we know it will be null if we are dealing with a request that
             //has an extension and by default no Umb ctx is created for the request
             if (ctx == null)
@@ -60,7 +67,7 @@ namespace Wr.UmbEpubReader.Routing
                 false);
             }
 
-            return base.GetUmbracoContext(requestContext);
+            return base.GetUmbracoContext(requestContext);*/
         }
     }
 }

@@ -218,7 +218,7 @@ namespace Wr.UmbEpubReader
         public void FindAndProcessXHTML(ref EpubDisplayModel ePubDisplayModel, EpubBookRef epubBookRef)
         {
             // build TOC
-            foreach (var item in epubBookRef.GetChapters())
+            foreach (var item in epubBookRef.GetNavigation())//.GetChapters())
             {
                 ePubDisplayModel.TOC_Items.Add(new EpubLink() { LinkTitle = item.Title }); // add TOC to display model
             }
@@ -247,8 +247,8 @@ namespace Wr.UmbEpubReader
             EpubChapterHolder cHolder = new EpubChapterHolder();
 
             // Enumerating chapters
-            var allChapters = epubBookRef.GetChapters();
-            for (int i = 0; i < allChapters.Count; i++)
+            var allChapters = epubBookRef.GetNavigation();//.GetChapters();
+            for (int i = 0; i < allChapters.Count(); i++)
             {
                 var _chapter = allChapters[i];
                 string encTitle = EpubHelpers.EncodeChapterTitleForUrl(_chapter.Title);
@@ -265,7 +265,7 @@ namespace Wr.UmbEpubReader
 
             if (!cHolder.CurrentChapter.IsValid()) // chapter not found - so get the default chapter and redirect to that
             {
-                if (_startAtIndex < 0 || _startAtIndex >= allChapters.Count) // check if the _startAtIndex property is within valid limits - if not then set the index to 0
+                if (_startAtIndex < 0 || _startAtIndex >= allChapters.Count()) // check if the _startAtIndex property is within valid limits - if not then set the index to 0
                 {
                     _startAtIndex = 0;
                 }
@@ -295,7 +295,7 @@ namespace Wr.UmbEpubReader
 
             // try and find the next chapter details
             int nextChapterIndex = cHolder.CurrentChapter.ChapterIndex + 1;
-            if (nextChapterIndex < allChapters.Count) // check index is valid
+            if (nextChapterIndex < allChapters.Count()) // check index is valid
             {
                 var _chapter = allChapters[nextChapterIndex];
                 cHolder.NextChapter.ChapterIndex = nextChapterIndex;
@@ -321,17 +321,17 @@ namespace Wr.UmbEpubReader
             //          Then load the result into HtmlAgilityPack because it will fix any html issues i.e. close any unclosed tags etc 
 
             var doc = new HtmlDocument();
-            doc.LoadHtml(cHolder.CurrentChapter.EpubChapter.ReadHtmlContent() ?? "");
+            doc.LoadHtml(cHolder.CurrentChapter.EpubChapter.HtmlContentFileRef.ReadContentAsText() ?? "");//.ReadHtmlContent() ?? "");
 
             var bodyNodes = doc.DocumentNode.SelectSingleNode("//body"); // select everything inside the <body> tag
 
-            var startNode = bodyNodes.SelectSingleNode(string.Format("//node()[@id='{0}']", cHolder.CurrentChapter.EpubChapter.Anchor)); // return the start node i.e. the start of the current chapter
+            var startNode = bodyNodes.SelectSingleNode(string.Format("//node()[@id='{0}']", cHolder.CurrentChapter.EpubChapter.Link.Anchor)); // return the start node i.e. the start of the current chapter
             var startTag = startNode.OuterHtml;
             startTagPosition = bodyNodes.InnerHtml.IndexOf(startTag); // index of the start tag
 
-            if (!string.IsNullOrEmpty(cHolder.NextChapter.EpubChapter?.Anchor ?? "")) // there is a next Chapter
+            if (!string.IsNullOrEmpty(cHolder.NextChapter.EpubChapter?.Link.Anchor ?? "")) // there is a next Chapter
             {
-                var endNode = bodyNodes.SelectSingleNode(string.Format("//node()[@id='{0}']", cHolder.NextChapter.EpubChapter.Anchor)); // return the end node i.e. the start of the next chapter
+                var endNode = bodyNodes.SelectSingleNode(string.Format("//node()[@id='{0}']", cHolder.NextChapter.EpubChapter.Link.Anchor)); // return the end node i.e. the start of the next chapter
                 if (endNode != null) // next chapter found
                 {
                     var endTag = endNode.OuterHtml;
@@ -380,14 +380,14 @@ namespace Wr.UmbEpubReader
         /// <param name="subchapterContent"></param>
         /// <param name="IsFirst"></param>
         /// <returns></returns>
-        private string BuildSubChapters(EpubChapterRef chapter, string subchapterContent, bool IsFirst = false)
+        private string BuildSubChapters(EpubNavigationItemRef chapter, string subchapterContent, bool IsFirst = false)
         {
             if (!IsFirst) // don't need to do the first on as it is the main chapter that has already been processed
             {
-                subchapterContent += chapter.ReadHtmlContent();
+                subchapterContent += chapter.HtmlContentFileRef.ReadContentAsText();//.FinalHtmlContent;//.ReadHtmlContent();
             }
 
-            foreach (var subChapter in chapter.SubChapters)
+            foreach (var subChapter in chapter.NestedItems)
             {
                 subchapterContent += BuildSubChapters(subChapter, subchapterContent);
             }

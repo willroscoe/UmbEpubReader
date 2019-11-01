@@ -25,14 +25,14 @@
   <info>
     <package>
       <name>Umbraco Epub Reader</name>
-      <version>0.1.1</version>
+      <version>8.0.1</version>
       <iconUrl>https://raw.githubusercontent.com/willroscoe/UmbEpubReader/master/assets/epub-logo64.png</iconUrl>
       <license url="http://opensource.org/licenses/MIT">MIT License</license>
       <url>https://github.com/willroscoe/UmbEpubReader</url>
       <requirements>
-        <major>7</major>
-        <minor>11</minor>
-        <patch>1</patch>
+        <major>8</major>
+        <minor>0</minor>
+        <patch>0</patch>
       </requirements>
     </package>
     <author>
@@ -64,7 +64,7 @@
         <GenericProperty>
           <Name>Body Text</Name>
           <Alias>bodyText</Alias>
-          <Type>Umbraco.TextboxMultiple</Type>
+          <Type>Umbraco.TextArea</Type>
           <Definition>4dc29068-18ac-45a4-9674-6a8b2fb29fd7</Definition>
           <Tab>Content</Tab>
           <SortOrder>3</SortOrder>
@@ -74,7 +74,7 @@
         <GenericProperty>
           <Name>Book cover image</Name>
           <Alias>bookCoverImage</Alias>
-          <Type>Umbraco.MediaPicker2</Type>
+          <Type>Umbraco.MediaPicker</Type>
           <Definition>b4436f51-83fd-4d62-abe0-d5f7177a5d88</Definition>
           <Tab>Content</Tab>
           <SortOrder>1</SortOrder>
@@ -95,7 +95,7 @@
         <GenericProperty>
           <Name>Epub file</Name>
           <Alias>epubFile</Alias>
-          <Type>Umbraco.MediaPicker2</Type>
+          <Type>Umbraco.MediaPicker</Type>
           <Definition>123c9253-380a-40b4-8c4e-53f6239efa57</Definition>
           <Tab>Content</Tab>
           <SortOrder>0</SortOrder>
@@ -151,14 +151,14 @@
         <div class="col-md-3">
             <nav class="nav-bar nav-bar--list">
                 @Html.Partial("~/Views/Partials/Navigation/SubNavigation.cshtml")
-                <p><img src="@Model.Content.BookCoverImage.Url" style="width: auto; max-width: 200px;" /></p>
+                <p><img src="@Model.BookCoverImage.Url" style="width: auto; max-width: 200px;" /></p>
                 <p><a href="read">Read Online</a></p>
             </nav>
         </div>
 
         <div class="col-md-9">
             <article>
-                @Model.Content.BodyText
+                @Model.BodyText
             </article>
         </div>
     </div>
@@ -183,7 +183,7 @@
     <div class="container">
 
         <div class="product-grid">
-            @foreach (ContentModels.Book book in Model.Content.Children)
+            @foreach (ContentModels.Book book in Model.Children)
                 {
                     <a href="@book.Url" class="product-grid__item" style="background-image: url('@book.BookCoverImage.Url')">
                         <div class="product-grid__item__overlay">
@@ -207,12 +207,12 @@
   <DictionaryItems />
   <Languages />
   <DataTypes>
-    <DataType Name="Book - Body Text - Textarea" Id="Umbraco.TextboxMultiple" Definition="4dc29068-18ac-45a4-9674-6a8b2fb29fd7" DatabaseType="Ntext">
+    <DataType Name="Book - Body Text - Textarea" Id="Umbraco.TextArea" Definition="4dc29068-18ac-45a4-9674-6a8b2fb29fd7" DatabaseType="Ntext">
       <PreValues>
         <PreValue Id="94" Value="" Alias="maxChars" SortOrder="0" />
       </PreValues>
     </DataType>
-    <DataType Name="Book - Book cover image - Media Picker" Id="Umbraco.MediaPicker2" Definition="b4436f51-83fd-4d62-abe0-d5f7177a5d88" DatabaseType="Ntext">
+    <DataType Name="Book - Book cover image - Media Picker" Id="Umbraco.MediaPicker" Definition="b4436f51-83fd-4d62-abe0-d5f7177a5d88" DatabaseType="Ntext">
       <PreValues>
         <PreValue Id="117" Value="0" Alias="multiPicker" SortOrder="0" />
         <PreValue Id="118" Value="1" Alias="onlyImages" SortOrder="1" />
@@ -220,7 +220,7 @@
         <PreValue Id="120" Value="" Alias="startNodeId" SortOrder="3" />
       </PreValues>
     </DataType>
-    <DataType Name="Book - Epub file - Media Picker" Id="Umbraco.MediaPicker2" Definition="123c9253-380a-40b4-8c4e-53f6239efa57" DatabaseType="Ntext">
+    <DataType Name="Book - Epub file - Media Picker" Id="Umbraco.MediaPicker" Definition="123c9253-380a-40b4-8c4e-53f6239efa57" DatabaseType="Ntext">
       <PreValues>
         <PreValue Id="95" Value="0" Alias="multiPicker" SortOrder="0" />
         <PreValue Id="96" Value="0" Alias="onlyImages" SortOrder="1" />

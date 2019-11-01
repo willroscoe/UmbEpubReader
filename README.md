@@ -120,3 +120,5 @@ Licensed under the [**MIT License**][MITLicense]
     - Initial release
 - 0.1.1 
      - Fixed TOC UL output
+- 8.0.1
+	- Updated for Umbraco v8

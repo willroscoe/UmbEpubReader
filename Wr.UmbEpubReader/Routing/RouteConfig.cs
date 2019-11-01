@@ -1,18 +1,22 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
 using System.Web.Routing;
-using Umbraco.Core.Configuration;
 using Umbraco.Web;
-using Wr.UmbEpubReader.Extensions;
 using Wr.UmbEpubReader.Helpers;
 
 namespace Wr.UmbEpubReader.Routing
 {
-    public static class EpubRoutes
+    public class RouteConfig
     {
-        public static void Configure()
+        public static void RegisterRoutes(RouteCollection routes)
         {
-            RouteTable.Routes.MapUmbracoRoute("EpubBookCustomRoute",
-                    UmbracoConfig.For.UmbEpubReader().BooksPathSegment + "/{booknameid}/" + UmbracoConfig.For.UmbEpubReader().ReadPathSegment + "/{*readparameters}", // get paths sections for the app settings in web.config
+            AppSettingsConfig appSettingsConfig = new AppSettingsConfig();
+
+            routes.MapUmbracoRoute("EpubBookCustomRoute",
+                    appSettingsConfig.BooksPathSegment + "/{booknameid}/" + appSettingsConfig.ReadPathSegment + "/{*readparameters}", // get paths sections for the app settings in web.config
                     new
                     {
                         controller = "UmbEpubReader",

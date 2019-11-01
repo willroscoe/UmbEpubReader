@@ -1,4 +1,4 @@
-version: 0.1.{build}
+version: 8.0.{build}
 
 image: Visual Studio 2017
 
@@ -9,10 +9,10 @@ branches:
     - master
 
 # Do not build on tags (GitHub and BitBucket)
-skip_tags: true
+#skip_tags: true
 
 # Start builds on tags only (GitHub and BitBucket)
-skip_non_tags: false
+skip_non_tags: true
 
 # Ignore testing a commit if only .md files or assets have changed
 # Or if various strings are found in the commit message: updated readme, update readme, update docs, update version, update appveyor

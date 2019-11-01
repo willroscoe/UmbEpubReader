@@ -35,7 +35,7 @@ namespace Wr.UmbEpubReader.Models
 
         public EpubLink TitleAndLinkUrl { get; set; }
 
-        public EpubChapterRef EpubChapter { get; set; }
+        public EpubNavigationItemRef EpubChapter { get; set; }
 
         public string FinalHtmlContent { get; set; }
 
