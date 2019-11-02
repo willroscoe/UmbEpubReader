@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Web.Mvc;
-using Umbraco.Core.Configuration;
+using Umbraco.Core.Models.PublishedContent;
 using Umbraco.Web;
 using Umbraco.Web.Models;
 using Umbraco.Web.Mvc;
@@ -20,11 +20,13 @@ namespace Wr.UmbEpubReader.Controllers
 
         public ActionResult UmbEpubReader_Read(ContentModel model, string booknameid = "", string readparameters = "")
         {
-            var epubFile = model.Content.GetProperty("epubFile").GetValue();
+            var epubFileContent = model.Content.GetProperty("epubFile").GetValue();
+            
             //if (!string.IsNullOrEmpty(epubFile))
-            if (epubFile != null)
+            if (epubFileContent != null)
             {
-                var epubUrl = string.Empty;// Umbraco.Media(epubFile).Url();
+                var epubFileContentMedia = Umbraco.Media(((IPublishedContent)epubFileContent).Id);
+                var epubUrl = epubFileContentMedia.Url();
                 var epubPath = Server.MapPath(epubUrl);
 
                 var startAtChapter = Convert.ToInt32(model.Content.GetProperty("startAtChapter").GetValue() ?? 0); // a no chapter is requested then start at this chapter index. 0  = the first chapter
@@ -34,10 +36,12 @@ namespace Wr.UmbEpubReader.Controllers
                 if (epub.ProcessEpub())
                 {
                     // try and get a cover image url from the Umbraco book page content
-                    var cover = model.Content.GetProperty("bookCoverImage").GetValue().ToString();
-                    if (!string.IsNullOrEmpty(cover))
+                    var cover = model.Content.GetProperty("bookCoverImage").GetValue();
+                    
+                    if (cover != null)
                     {
-                        var coverUrl = Umbraco.Media(cover).Url();
+                        var coverMedia = Umbraco.Media(((IPublishedContent)cover).Id);
+                        var coverUrl = coverMedia.Url();
                         if (!string.IsNullOrEmpty(coverUrl)) // cover image found in umbraco content for this book
                         {
                             epub.ePubDisplayModel.CoverImageUrl = coverUrl;

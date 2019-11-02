@@ -30,7 +30,7 @@ namespace Wr.UmbEpubReader.Routing
             if (umbracoContext == null)
                 return null;
 
-            var node = umbracoContext.ContentCache.GetByRoute("/" + bookBaseRoute + bookFriendlyUrl); // build the book base url i.e. /books/my-book 
+            var node = umbracoContext.Content.GetByRoute("/" + bookBaseRoute + bookFriendlyUrl); // build the book base url i.e. /books/my-book 
 
             return node;
         }
