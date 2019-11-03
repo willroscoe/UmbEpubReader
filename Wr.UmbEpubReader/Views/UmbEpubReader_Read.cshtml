@@ -1,10 +1,10 @@
-﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<ContentModels.Book>
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<BookContentModel>
 @using ContentModels = Umbraco.Web.PublishedModels;
 
 @using Wr.UmbEpubReader.Models;
 @{
     Layout = "Master.cshtml";
-    EpubDisplayModel epub = ViewBag.Epub;
+    EpubDisplayModel epub = Model.epub;
 }
 <style>
     .book-cover-img img {

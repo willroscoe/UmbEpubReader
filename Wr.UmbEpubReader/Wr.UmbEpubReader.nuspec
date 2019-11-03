@@ -13,11 +13,12 @@
     <description>An Umbraco plugin to read epub books online</description>
     <tags>Umbraco epub reader</tags>
     <dependencies>
-      <dependency id="UmbracoCms.Core" version="8.0.0" />
+      <dependency id="UmbracoCms.Core" version="8.2.1" />
     </dependencies>
   </metadata>
   <files>
-    <file src="bin\VersOne.Epub.dll" target="lib\net452" />
-    <file src="bin\dotless.Core.dll" target="lib\net452" />
+    <file src="bin\VersOne.Epub.dll" target="lib\net472" />
+    <file src="bin\dotless.Core.dll" target="lib\net472" />
+    <file src="bin\Microsoft.Extensions.DependencyInjection.dll" target="lib\net472" />
   </files>
 </package>

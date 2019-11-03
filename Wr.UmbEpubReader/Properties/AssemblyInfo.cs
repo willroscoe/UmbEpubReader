@@ -34,6 +34,3 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyVersion("8.0.0.0")]
 [assembly: AssemblyFileVersion("8.0.0.0")]
 [assembly: AssemblyInformationalVersion("8.0.0")]
-
-// allow for unit testing of private methods
-[assembly: InternalsVisibleTo("Wr.UmbEpubReader.Tests")]

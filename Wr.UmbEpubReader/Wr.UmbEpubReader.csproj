@@ -351,6 +351,7 @@
     <Compile Include="EpubServer.cs" />
     <Compile Include="Helpers\AppSettingsConfig.cs" />
     <Compile Include="Helpers\EpubHelpers.cs" />
+    <Compile Include="Models\BookContentModel.cs" />
     <Compile Include="Models\EpubChapterHolder.cs" />
     <Compile Include="Models\EpubDisplayModel.cs" />
     <Compile Include="Models\EpubLink.cs" />

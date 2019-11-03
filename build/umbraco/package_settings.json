@@ -1,6 +1,6 @@
 ﻿{
   "projectRoot": "../../Wr.UmbEpubReader",
-  "dlls": [ "/bin/Wr.UmbEpubReader.dll", "/bin/VersOne.Epub.dll", "/bin/dotless.Core.dll" ],
+  "dlls": [ "/bin/Wr.UmbEpubReader.dll", "/bin/VersOne.Epub.dll", "/bin/dotless.Core.dll", "/bin/Microsoft.Extensions.DependencyInjection.dll" ],
   "packageXmlTemplate": "package.xml",
   "includeFoldersOrFiles": [ "/Views/UmbEpubReader_Read.cshtml" ]
 }

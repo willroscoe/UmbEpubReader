@@ -5,6 +5,7 @@ using Umbraco.Web;
 using Umbraco.Web.Models;
 using Umbraco.Web.Mvc;
 using Wr.UmbEpubReader.Helpers;
+using Wr.UmbEpubReader.Models;
 
 namespace Wr.UmbEpubReader.Controllers
 {
@@ -20,16 +21,17 @@ namespace Wr.UmbEpubReader.Controllers
 
         public ActionResult UmbEpubReader_Read(ContentModel model, string booknameid = "", string readparameters = "")
         {
+            BookContentModel result = new BookContentModel(model.Content);
+
             var epubFileContent = model.Content.GetProperty("epubFile").GetValue();
             
-            //if (!string.IsNullOrEmpty(epubFile))
             if (epubFileContent != null)
             {
                 var epubFileContentMedia = Umbraco.Media(((IPublishedContent)epubFileContent).Id);
                 var epubUrl = epubFileContentMedia.Url();
                 var epubPath = Server.MapPath(epubUrl);
 
-                var startAtChapter = Convert.ToInt32(model.Content.GetProperty("startAtChapter").GetValue() ?? 0); // a no chapter is requested then start at this chapter index. 0  = the first chapter
+                var startAtChapter = Convert.ToInt32(model.Content.GetProperty("startAtChapter").GetValue() ?? 0); // if no chapter is requested then start at this chapter index. 0  = the first chapter
 
                 EpubServer epub = new EpubServer(epubPath, readparameters, startAtChapter);
 
@@ -47,8 +49,7 @@ namespace Wr.UmbEpubReader.Controllers
                             epub.ePubDisplayModel.CoverImageUrl = coverUrl;
                         }
                     }
-                    
-                    ViewBag.Epub = epub.ePubDisplayModel; // store the book content in a ViewBag so the View can access it.
+                    result.epub = epub.ePubDisplayModel;
                 }
                 else // either a redirect or a embeded file to be served
                 {
@@ -71,7 +72,7 @@ namespace Wr.UmbEpubReader.Controllers
                 }
             }
 
-            return CurrentTemplate(model);
+            return CurrentTemplate(result);
         }
     }
 }
