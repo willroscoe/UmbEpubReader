@@ -4,7 +4,9 @@ using Wr.UmbEpubReader.Routing;
 
 namespace Wr.UmbEpubReader.Components
 {
-    
+    /// <summary>
+    /// Register Routing
+    /// </summary>
     public class RoutingComponent : IComponent
     {
         public void Initialize()
