@@ -51,8 +51,11 @@ after_build:
     build\tools\UmbracoTools\Wr.UmbracoTools.Packager.exe -set build\umbraco\package_settings.json -out "..\UmbEpubReader-{version}.zip" -ver ${env:APPVEYOR_BUILD_VERSION}
 
 artifacts:
-- path: UmbEpubReader*.zip
+- path: '**\UmbEpubReader*.zip'
   name: umbraco package
+
+- path: '**\*.nupkg'
+  name: nuget package
 
 deploy:
    # GitHub Deployment for releases
