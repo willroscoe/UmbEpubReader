@@ -65,7 +65,7 @@ deploy:
     release: UmbEpubReader $(appveyor_build_version)
     description: 'Update to Umbraco v8.1+'
     auth_token:
-      secure: +WQIHXHxdNFy3CQ2ItEubL7hOFj0triuSW0g6Sim2PZS9vI7iTNbDjpSyZmO2EcU
+      secure: 9JsyY72D34T18UiX5d44wy+AmN+aHYfRGdMkwCTCVpB95mMn1tWQQJ5win8NqrEB
     artifact: /.*\.nupkg/, /.*\.zip/         # upload all Zip packages to release assets
     draft: false
     prerelease: false
