@@ -31,8 +31,8 @@
       <url>https://github.com/willroscoe/UmbEpubReader</url>
       <requirements>
         <major>8</major>
-        <minor>2</minor>
-        <patch>1</patch>
+        <minor>1</minor>
+        <patch>0</patch>
       </requirements>
     </package>
     <author>

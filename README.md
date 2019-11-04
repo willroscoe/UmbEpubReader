@@ -5,7 +5,7 @@
 
 This plugin allows you to display readable versions of (non-DRM) Epub books, navigable via the internal chapters, on your Umbraco site. The Epub file format is basically a .zip archive with embeded html, css, font & image files.
 
-**Please note this plugin will only work for Umbraco version 7.6 and above.**
+**This version of the plugin is for Umbraco v8.1+. For Umbraco v7.6+ use the Tag 0.1.1**
 
 Using the provided example 'Book' & 'Books' Document Types and Templates (included in the installable package - not the nuget package) and Setup (see 'Setting Up' below), you can view/read your epub books by simply navigating to:
 ### /books
@@ -121,4 +121,4 @@ Licensed under the [**MIT License**][MITLicense]
 - 0.1.1 
      - Fixed TOC UL output
 - 8.0.1
-	- Updated for Umbraco v8
+	- Updated for Umbraco v8.1+. NOte: Major version number now reflects the Umbraco major verion number

@@ -13,7 +13,7 @@
     <description>An Umbraco plugin to read epub books online</description>
     <tags>Umbraco epub reader</tags>
     <dependencies>
-      <dependency id="UmbracoCms.Core" version="8.2.1" />
+      <dependency id="UmbracoCms.Core" version="8.1.0" />
     </dependencies>
   </metadata>
   <files>
