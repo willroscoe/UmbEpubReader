@@ -9,6 +9,9 @@ using Wr.UmbEpubReader.Helpers;
 
 namespace Wr.UmbEpubReader.Routing
 {
+    /// <summary>
+    /// Custom Route for Book
+    /// </summary>
     public class RouteConfig
     {
         public static void RegisterRoutes(RouteCollection routes)
