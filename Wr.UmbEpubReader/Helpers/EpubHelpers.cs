@@ -6,7 +6,7 @@ namespace Wr.UmbEpubReader.Helpers
     public class EpubHelpers
     {
         /// <summary>
-        /// Converts the chapter title to a url friendly version
+        /// Converts the chapter title to a url friendly version.
         /// </summary>
         /// <param name="chapterTitle"></param>
         /// <returns></returns>
