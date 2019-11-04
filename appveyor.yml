@@ -54,9 +54,6 @@ artifacts:
 - path: '**\UmbEpubReader*.zip'
   name: umbraco package
 
-- path: '**\*.nupkg'
-  name: nuget package
-
 deploy:
    # GitHub Deployment for releases
   - provider: GitHub
